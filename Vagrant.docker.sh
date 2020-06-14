@@ -2,15 +2,19 @@
 
 ### Aprovisionamiento de software ###
 
-# Actualizo los paquetes de la maquina virtual
-#sudo apt-get update
-
-# Desnstalo Apache
+# Desinstalo Apache
 if [ -x "$(command -v apache2)" ]; then
   echo 'Uninstalling apache...'
   sudo service apache2 stop
   sudo apt-get remove -y apache2* 
   sudo apt autoremove -y
+fi
+
+# Instalo git
+if ! [ -x "$(command -v git)" ]; then
+  echo 'Installing git...'
+  sudo apt-get update
+  sudo apt-get install -y git-core
 fi
 
 # Instalo Docker
@@ -41,10 +45,18 @@ if [ ! -f "/swapdir/swapfile" ]; then
 fi
 
 # descargo la app del repositorio
-cd /var/www/html
-sudo rm * -R -y
-sudo git clone https://github.com/UTN-DevOps-2020-Grupo2/app-php-mysql.git
+if [ ! -f "/var/www/html" ]; then
+  sudo mkdir /var/www/html
+fi
 
+if [ ! -f "/var/www/html/app-php-mysql/" ]; then
+  sudo mkdir /var/www/html
+  cd /var/www/html
+  sudo rm * -R -y
+  sudo git clone https://github.com/UTN-DevOps-2020-Grupo2/app-php-mysql.git
+fi
+
+# Inicio docker-compose
 cd /vagrant/
 sudo docker-compose up -d
 
