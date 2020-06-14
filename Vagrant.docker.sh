@@ -45,10 +45,18 @@ if [ ! -f "/swapdir/swapfile" ]; then
 fi
 
 # descargo la app del repositorio
-cd /var/www/html
-sudo rm * -R -y
-sudo git clone https://github.com/UTN-DevOps-2020-Grupo2/app-php-mysql.git
+if [ ! -f "/var/www/html" ]; then
+  sudo mkdir /var/www/html
+fi
 
+if [ ! -f "/var/www/html/app-php-mysql/" ]; then
+  sudo mkdir /var/www/html
+  cd /var/www/html
+  sudo rm * -R -y
+  sudo git clone https://github.com/UTN-DevOps-2020-Grupo2/app-php-mysql.git
+fi
+
+# Inicio docker-compose
 cd /vagrant/
 sudo docker-compose up -d
 
