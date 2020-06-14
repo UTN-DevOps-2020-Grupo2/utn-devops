@@ -28,7 +28,7 @@ services:
     ports:
       - "${PHP_PORT}:80"
     volumes:
-      - ./public:/var/www/html
+      - /var/www/html/app-php-mysql/public:/var/www/html/
     links:
       - mysql
 

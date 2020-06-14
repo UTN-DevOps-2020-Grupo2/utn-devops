@@ -40,6 +40,11 @@ if [ ! -f "/swapdir/swapfile" ]; then
 	echo vm.swappiness = 10 | sudo tee -a /etc/sysctl.conf
 fi
 
+# descargo la app del repositorio
+cd /var/www/html
+sudo rm * -R -y
+sudo git clone https://github.com/UTN-DevOps-2020-Grupo2/app-php-mysql.git
+
 cd /vagrant/
 sudo docker-compose up -d
 
