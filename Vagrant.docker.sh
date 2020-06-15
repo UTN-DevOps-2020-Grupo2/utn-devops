@@ -52,7 +52,7 @@ fi
 if [ ! -f "/var/www/html/app-php-mysql/" ]; then
   sudo mkdir /var/www/html
   cd /var/www/html
-  sudo rm * -R -y
+  sudo rm * -R -f
   sudo git clone https://github.com/UTN-DevOps-2020-Grupo2/app-php-mysql.git
 fi
 
