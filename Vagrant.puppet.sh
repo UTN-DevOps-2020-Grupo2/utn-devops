@@ -74,7 +74,8 @@ if ! [ -x "$(command -v puppetserver)" ]; then
   sudo apt-get update
   sudo apt-get install -y puppetserver
   cd /vagrant/
-  sudo cp ./configs/puppetserver /etc/default/puppetserver
+# Se comenta hasta que se defina si se agrega o no (dió errores en las pruebas)
+#  sudo cp ./configs/puppetserver /etc/default/puppetserver
   echo 'Starting Puppet Server...'
   sudo systemctl start puppetserver
 fi
@@ -82,21 +83,24 @@ fi
 if ! [ -x "$(command -v puppet)" ]; then
   echo 'Installing Puppet Agent...'
   sudo apt-get install -y puppet-agent
-  cd /vagrant/
-  sudo cp ./configs/puppet.conf /etc/puppetlabs/puppet/puppet.conf
-  echo 'Starting Puppet Agent...'
-  sudo systemctl start puppet
-  sudo systemctl enable puppet
+ 
 fi
 
+cd /vagrant/
+sudo cp ./configs/puppet.conf /etc/puppetlabs/puppet/puppet.conf
+echo 'Starting Puppet Agent...'
+sudo systemctl stop puppet
+sudo systemctl start puppet
+sudo systemctl enable puppet
+
 # if ! [ -x "$(command -v service jenkins status)" ]; then
-  echo 'Installing Jenkins...'
-  wget -q -O - https://pkg.jenkins.io/debian/jenkins-ci.org.key | sudo apt-key add -
-  echo deb https://pkg.jenkins.io/debian-stable binary/ | sudo tee /etc/apt/sources.list.d/jenkins.list
-  sudo apt-get update
-  sudo apt-get install -y jenkins
-  cd /vagrant/
-  sudo cp ./configs/jenkins /etc/default/jenkins
-  echo 'Starting Jenkins...'
-  sudo systemctl start jenkins
+#  echo 'Installing Jenkins...'
+#  wget -q -O - https://pkg.jenkins.io/debian/jenkins-ci.org.key | sudo apt-key add -
+#  echo deb https://pkg.jenkins.io/debian-stable binary/ | sudo tee /etc/apt/sources.list.d/jenkins.list
+#  sudo apt-get update
+#  sudo apt-get install -y jenkins
+# cd /vagrant/
+#  sudo cp ./configs/jenkins /etc/default/jenkins
+#  echo 'Starting Jenkins...'
+#  sudo systemctl start jenkins
 # fi
