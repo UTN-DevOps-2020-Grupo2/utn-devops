@@ -3,6 +3,9 @@
 # pulled in from the init script; makes things easier.
 NAME=jenkins
 
+# location of java
+JAVA=/usr/bin/java
+
 # arguments to pass to java
 
 # Allow graphs etc. to work even when an X server is present
@@ -11,7 +14,7 @@ JAVA_ARGS="-Djava.awt.headless=true"
 #JAVA_ARGS="-Xmx256m"
 
 # make jenkins listen on IPv4 address
-JAVA_ARGS="-Djava.net.preferIPv4Stack=true"
+#JAVA_ARGS="-Djava.net.preferIPv4Stack=true"
 
 PIDFILE=/var/run/$NAME/$NAME.pid
 
@@ -33,10 +36,6 @@ RUN_STANDALONE=true
 # log location.  this may be a syslog facility.priority
 JENKINS_LOG=/var/log/$NAME/$NAME.log
 #JENKINS_LOG=daemon.info
-
-# Whether to enable web access logging or not.
-# Set to "yes" to enable logging to /var/log/$NAME/access_log
-JENKINS_ENABLE_ACCESS_LOG="no"
 
 # OS LIMITS SETUP
 #   comment this out to observe /etc/security/limits.conf
@@ -60,7 +59,7 @@ MAXOPENFILES=8192
 # UMASK=027
 
 # port for HTTP connector (default 8080; disable with -1)
-HTTP_PORT=8082
+HTTP_PORT=8080
 
 
 # servlet context, important if you want to use apache proxying
@@ -77,4 +76,3 @@ PREFIX=/$NAME
 # --prefix=$PREFIX
 
 JENKINS_ARGS="--webroot=/var/cache/$NAME/war --httpPort=$HTTP_PORT"
-
